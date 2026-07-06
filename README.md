@@ -1,92 +1,48 @@
-# Basic SQL - Day 03
 
-## Nội dung
+# Database Practice
 
-Trong bài này mình thực hành các câu lệnh SQL để phục vụ API lấy danh sách dữ liệu.
+## Giới thiệu
 
-Các nội dung đã làm:
+Đây là bài thực hành về thiết kế cơ sở dữ liệu quản lý kho bằng PostgreSQL.
 
-* Phân trang dữ liệu (Pagination)
-* Tìm kiếm theo tên sản phẩm
-* Sắp xếp theo giá
-* Sắp xếp theo tên
-* Kết hợp tìm kiếm và phân trang
-* Đếm tổng số bản ghi
+Dự án gồm các bảng:
 
-## Pagination là gì?
+* Users
+* Categories
+* Suppliers
+* Products
+* StockIn
+* StockOut
 
-Pagination là cách chia dữ liệu thành nhiều trang để mỗi lần chỉ lấy một số lượng bản ghi nhất định.
+Ngoài ra còn có các câu query để tìm kiếm, thống kê và quản lý dữ liệu.
 
-Ví dụ có 100 sản phẩm nhưng chỉ muốn hiển thị 10 sản phẩm mỗi lần thì sẽ dùng Pagination.
+## Cấu trúc project
 
-Trong PostgreSQL sử dụng:
+* `01_create_tables.sql`: Tạo các bảng.
+* `02_seed_data.sql`: Thêm dữ liệu mẫu.
+* `03_queries.sql`: Chứa 20 câu query.
 
-```sql
-LIMIT pageSize
-OFFSET (page - 1) * pageSize
-```
+## Cách chạy
 
-Ví dụ:
+Bước 1: Tạo một database mới trong PostgreSQL.
 
-Trang 1:
+Bước 2: Chạy file `01_create_tables.sql` để tạo các bảng.
 
-```sql
-SELECT *
-FROM Courses
-LIMIT 5
-OFFSET 0;
-```
+Bước 3: Chạy file `02_seed_data.sql` để thêm dữ liệu mẫu.
 
-Trang 2:
+Bước 4: Chạy file `03_queries.sql` để thực hiện các câu truy vấn.
 
-```sql
-SELECT *
-FROM Courses
-LIMIT 5
-OFFSET 5;
-```
+## Nội dung đã thực hiện
 
-## Search
+* Tạo bảng và khóa ngoại.
+* Thêm dữ liệu mẫu.
+* Thực hiện các câu lệnh SELECT.
+* JOIN nhiều bảng.
+* Thống kê bằng COUNT, SUM và AVG.
+* Quản lý nhập kho và xuất kho.
 
-Tìm kiếm tên khóa học bằng từ khóa.
+## ERD
 
-```sql
-SELECT *
-FROM Courses
-WHERE CourseName ILIKE '%Java%';
-```
+File `ERD.png` mô tả mối quan hệ giữa các bảng trong cơ sở dữ liệu
 
-## Sort
-
-Sắp xếp theo giá tăng dần:
-
-```sql
-ORDER BY Price ASC;
-```
-
-Sắp xếp theo tên:
-
-```sql
-ORDER BY CourseName ASC;
-```
-
-## Search kết hợp Pagination
-
-Có thể vừa tìm kiếm vừa phân trang.
-
-```sql
-SELECT *
-FROM Courses
-WHERE CourseName ILIKE '%Programming%'
-ORDER BY Price
-LIMIT 3
-OFFSET 0;
-```
-
-## Kiến thức học được
-
-* Sử dụng LIMIT và OFFSET để phân trang.
-* Dùng ILIKE để tìm kiếm không phân biệt chữ hoa và chữ thường.
-* Sử dụng ORDER BY để sắp xếp dữ liệu.
-* Kết hợp nhiều điều kiện trong một câu truy vấn để phục vụ API.
-* Dùng COUNT(*) để đếm tổng số dữ liệu.
+![1783325188930](image/README/1783325188930.png)
